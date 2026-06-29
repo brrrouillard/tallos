@@ -1,7 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { AgentRun } from "~/components/agent-run";
 import { Button } from "~/components/ui/button";
+import { BOOK_A_CALL_URL } from "~/lib/links";
 
 const PROCESS = [
   {
@@ -70,8 +71,26 @@ const Home = () => (
           >
             Examples
           </a>
+          <Link
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            to="/build"
+          >
+            Build agents
+          </Link>
         </nav>
-        <Button size="sm">Request access</Button>
+        <div className="flex items-center gap-2">
+          <Button
+            asChild
+            className="hidden sm:inline-flex"
+            size="sm"
+            variant="ghost"
+          >
+            <a href={BOOK_A_CALL_URL}>Book a call</a>
+          </Button>
+          <Button asChild size="sm">
+            <Link to="/build">Get started</Link>
+          </Button>
+        </div>
       </div>
     </header>
 
@@ -93,13 +112,15 @@ const Home = () => (
               and showing its work before anything ships.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button size="lg">Request access</Button>
-              <Button asChild size="lg" variant="ghost">
-                <a href="#how">How it works</a>
+              <Button asChild size="lg">
+                <Link to="/build">Get started</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a href={BOOK_A_CALL_URL}>Book a call</a>
               </Button>
             </div>
             <p className="mt-6 font-mono text-xs text-muted-foreground">
-              Private beta · shaped to your business, not a template
+              Free · no signup · shaped to your business, not a template
             </p>
           </div>
           <div className="md:pl-4">
@@ -202,8 +223,13 @@ const Home = () => (
             Design an agent around your real work, watch it run, and ship on
             your terms.
           </p>
-          <div className="mt-8 flex justify-center">
-            <Button size="lg">Request access</Button>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg">
+              <Link to="/build">Get started</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <a href={BOOK_A_CALL_URL}>Book a call</a>
+            </Button>
           </div>
         </div>
       </section>
@@ -219,9 +245,7 @@ const Home = () => (
             Custom AI agents for your business
           </span>
         </div>
-        <p className="font-mono text-xs text-muted-foreground">
-          © 2026 Tallos · Private beta
-        </p>
+        <p className="font-mono text-xs text-muted-foreground">© 2026 Tallos</p>
       </div>
     </footer>
   </div>

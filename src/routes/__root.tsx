@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import appCss from "~/styles/app.css?url";
 
 const RootDocument = ({ children }: { children: ReactNode }) => (
-  <html className="dark" lang="en">
+  <html className="dark antialiased" lang="en">
     <head>
       <HeadContent />
     </head>
