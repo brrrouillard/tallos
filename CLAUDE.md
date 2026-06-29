@@ -1,6 +1,6 @@
 # Tallos
 
-Tallos is a **B2B platform where teams spin up AI agents to help them get work done**. Agents are powered by **Hermes** behind the scenes.
+Tallos is a **B2B platform where teams spin up AI agents to help them get work done**.
 
 - **MVP (current):** a single built-in agent — a productivity agent.
 - **v2 (planned):** users dynamically create and configure their own agents.
@@ -74,6 +74,6 @@ Prefer Bun built-ins over third-party packages on the server:
 - `Bun.file` over `node:fs` read/write · `Bun.$` (shell) over execa · built-in `WebSocket` / `fetch`.
 - Bun auto-loads `.env` — no dotenv.
 
-## Agents (Hermes)
+## Agents
 
-Agent capabilities are backed by **Hermes**. There is no agent code in the repo yet — when adding it, keep agent definitions configurable/data-driven (see the design implication above) so the MVP's single productivity agent generalizes cleanly to user-created agents in v2.
+The agent engine is an internal, swappable implementation detail — don't surface it in user-facing copy or product UI. There is no agent code in the repo yet; when adding it, keep agent definitions configurable/data-driven (see the design implication above) so the MVP's single productivity agent generalizes cleanly to user-created agents in v2.

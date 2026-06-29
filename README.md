@@ -1,6 +1,6 @@
 # Tallos
 
-Tallos is a B2B platform where teams **spin up AI agents** to help them get work done. Agents are powered by **Hermes** behind the scenes.
+Tallos is a B2B platform where teams **spin up AI agents** to help them get work done.
 
 - **Today (MVP):** one built-in productivity agent.
 - **Coming (v2):** create and configure your own agents.

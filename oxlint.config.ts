@@ -3,5 +3,6 @@ import core from "ultracite/oxlint/core";
 
 export default defineConfig({
   extends: [core],
-  ignorePatterns: core.ignorePatterns,
+  // shadcn-generated components follow shadcn's own style; don't lint them.
+  ignorePatterns: [...(core.ignorePatterns ?? []), "src/components/ui/**"],
 });
