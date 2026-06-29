@@ -2,7 +2,11 @@ import { createServerFn } from "@tanstack/react-start";
 import { getRequestHeader, getRequestIP } from "@tanstack/react-start/server";
 
 import type { Blueprint, BlueprintsResult } from "~/lib/blueprints";
-import { BLUEPRINT_CATEGORIES, parseBlueprints } from "~/lib/blueprints";
+import {
+  BLUEPRINT_CATEGORIES,
+  BLUEPRINT_COUNT,
+  parseBlueprints,
+} from "~/lib/blueprints";
 import { checkRateLimit } from "~/lib/rate-limit";
 import { isSafeUrl, scrapeSite } from "~/lib/scraper";
 
@@ -14,7 +18,7 @@ const MAX_TOKENS = 1800;
 
 const SYSTEM_PROMPT = `You are a product strategist for Tallos, a platform where teams spin up AI agents to do work for them.
 
-Given the text scraped from a company's website, propose exactly 3 AI agents ("blueprints") that would help THAT specific business. These are aspirational ideas — agents the team could build in Tallos.
+Given the text scraped from a company's website, propose exactly ${BLUEPRINT_COUNT} AI agents ("blueprints") that would help THAT specific business. These are aspirational ideas — agents the team could build in Tallos.
 
 Return ONLY a JSON object of this exact shape:
 {
@@ -32,7 +36,7 @@ Return ONLY a JSON object of this exact shape:
 }
 
 Rules:
-- Exactly 3 blueprints, each in a DIFFERENT category from the allowed list.
+- Exactly ${BLUEPRINT_COUNT} blueprints, each in a DIFFERENT category from the allowed list.
 - Ground every blueprint in what the website actually says. If the site is thin, stay general but plausible — never invent specific facts (named customers, metrics) that aren't present.
 - estTimeSaved must always be a hedged range with a "~", e.g. "~2-4 hrs/wk".
 - Output the JSON object only, no prose, no markdown fences.`;

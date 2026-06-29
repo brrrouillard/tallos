@@ -16,6 +16,7 @@ import { Badge } from "~/components/ui/badge";
 import { Card, CardContent } from "~/components/ui/card";
 import type { Blueprint, BlueprintCategory } from "~/lib/blueprints";
 import { CATEGORY_LABELS } from "~/lib/blueprints";
+import { panelLabel } from "~/lib/styles";
 
 const CATEGORY_ICONS: Record<BlueprintCategory, LucideIcon> = {
   "customer-support": Headset,
@@ -27,9 +28,6 @@ const CATEGORY_ICONS: Record<BlueprintCategory, LucideIcon> = {
   research: FlaskConical,
   sales: Target,
 };
-
-const label =
-  "font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted-foreground";
 
 export const BlueprintCard = ({ blueprint }: { blueprint: Blueprint }) => {
   const Icon = CATEGORY_ICONS[blueprint.category];
@@ -62,7 +60,7 @@ export const BlueprintCard = ({ blueprint }: { blueprint: Blueprint }) => {
 
         <div className="flex flex-col gap-6 md:col-span-8">
           <div>
-            <p className={label}>What it does</p>
+            <p className={panelLabel}>What it does</p>
             <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
               {blueprint.features.map((feature) => (
                 <li className="flex items-start gap-2 text-sm" key={feature}>
@@ -75,13 +73,13 @@ export const BlueprintCard = ({ blueprint }: { blueprint: Blueprint }) => {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-2xl border border-border bg-muted/30 p-4">
-              <p className={label}>Why it fits you</p>
+              <p className={panelLabel}>Why it fits you</p>
               <p className="mt-1.5 text-pretty text-sm text-foreground">
                 {blueprint.whyItFits}
               </p>
             </div>
             <div className="rounded-2xl border border-border bg-muted/30 p-4">
-              <p className={label}>Try</p>
+              <p className={panelLabel}>Try</p>
               <p className="mt-1.5 text-pretty text-sm text-foreground">
                 “{blueprint.exampleTask}”
               </p>

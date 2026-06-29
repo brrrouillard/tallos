@@ -7,7 +7,9 @@ import { BlueprintCard } from "~/components/blueprint-card";
 import { BuildProgress } from "~/components/build-progress";
 import { Button } from "~/components/ui/button";
 import type { BlueprintsResult } from "~/lib/blueprints";
+import { BLUEPRINT_COUNT } from "~/lib/blueprints";
 import { BOOK_A_CALL_URL } from "~/lib/links";
+import { container, eyebrow } from "~/lib/styles";
 import type { BlueprintError } from "~/server/blueprints";
 import { generateBlueprintsForSite } from "~/server/blueprints";
 
@@ -22,9 +24,8 @@ const ERROR_MESSAGES: Record<BlueprintError, string> = {
     "We couldn't read that site — it may block bots or be down. Try another URL.",
 };
 
-const eyebrow =
-  "font-mono text-xs uppercase tracking-[0.25em] text-muted-foreground";
-const container = "mx-auto w-full max-w-6xl px-6";
+const enterAnim =
+  "animate-in fade-in fill-mode-backwards duration-500 motion-reduce:animate-none";
 
 const displayDomain = (input: string): string => {
   const stripped = input
@@ -39,7 +40,6 @@ const Build = () => {
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<BlueprintsResult | null>(null);
   const [errorCode, setErrorCode] = useState<BlueprintError | null>(null);
-  const [pendingDomain, setPendingDomain] = useState("");
 
   const run = async () => {
     const trimmed = url.trim();
@@ -49,7 +49,6 @@ const Build = () => {
     setStatus("loading");
     setResult(null);
     setErrorCode(null);
-    setPendingDomain(displayDomain(trimmed));
 
     try {
       const response = await generateBlueprintsForSite({
@@ -121,19 +120,27 @@ const Build = () => {
               size="lg"
               type="submit"
             >
-              {status === "loading" ? "Working…" : "Show me"}
-              {status === "loading" ? null : <ArrowRight />}
+              {status === "loading" ? (
+                "Working…"
+              ) : (
+                <>
+                  Show me
+                  <ArrowRight />
+                </>
+              )}
             </Button>
           </form>
         </div>
 
         <div className="mt-14">
           {status === "loading" ? (
-            <BuildProgress domain={pendingDomain} />
+            <BuildProgress domain={displayDomain(url)} />
           ) : null}
 
           {status === "error" && errorCode ? (
-            <div className="mx-auto max-w-md animate-in rounded-2xl border border-border bg-muted/30 p-6 text-center fade-in slide-in-from-bottom-2 fill-mode-backwards duration-500 motion-reduce:animate-none">
+            <div
+              className={`mx-auto max-w-md rounded-2xl border border-border bg-muted/30 p-6 text-center ${enterAnim} slide-in-from-bottom-2`}
+            >
               <p className="text-pretty text-sm text-foreground">
                 {ERROR_MESSAGES[errorCode]}
               </p>
@@ -150,18 +157,21 @@ const Build = () => {
 
           {status === "done" && result ? (
             <div className="flex flex-col gap-10">
-              <div className="animate-in text-center fade-in slide-in-from-bottom-2 fill-mode-backwards duration-500 motion-reduce:animate-none">
+              <div
+                className={`text-center ${enterAnim} slide-in-from-bottom-2`}
+              >
                 <p
                   className={`${eyebrow} flex items-center justify-center gap-1.5`}
                 >
-                  <Sparkles className="size-3.5" />3 agents for {result.domain}
+                  <Sparkles className="size-3.5" />
+                  {BLUEPRINT_COUNT} agents for {result.domain}
                 </p>
               </div>
 
               <div className="flex flex-col gap-6">
                 {result.blueprints.map((blueprint, index) => (
                   <div
-                    className="animate-in fade-in slide-in-from-bottom-3 fill-mode-backwards duration-500 motion-reduce:animate-none"
+                    className={`${enterAnim} slide-in-from-bottom-3`}
                     key={blueprint.name}
                     style={{ animationDelay: `${(index + 1) * 90}ms` }}
                   >
@@ -170,7 +180,9 @@ const Build = () => {
                 ))}
               </div>
 
-              <div className="mx-auto max-w-xl animate-in rounded-3xl border border-border bg-card p-8 text-center fade-in slide-in-from-bottom-2 fill-mode-backwards duration-500 [animation-delay:360ms] motion-reduce:animate-none">
+              <div
+                className={`mx-auto max-w-xl rounded-3xl border border-border bg-card p-8 text-center ${enterAnim} slide-in-from-bottom-2 [animation-delay:360ms]`}
+              >
                 <h2 className="text-balance font-heading text-2xl font-semibold tracking-tight">
                   Want these working for you?
                 </h2>

@@ -111,13 +111,11 @@ const scrapePage = async (
   url: string,
   timeoutMs: number
 ): Promise<ScrapedPage | null> => {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(url, {
       headers: BROWSER_HEADERS,
       redirect: "follow",
-      signal: controller.signal,
+      signal: AbortSignal.timeout(timeoutMs),
     });
     if (!response.ok) {
       return null;
@@ -126,20 +124,16 @@ const scrapePage = async (
     return { statusCode: response.status, text, url };
   } catch {
     return null;
-  } finally {
-    clearTimeout(timeoutId);
   }
 };
 
 // Jina Reader renders JS and returns clean text. Used as a fallback when the
 // direct fetch comes back empty.
 const scrapeViaJina = async (url: string): Promise<string | null> => {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), JINA_TIMEOUT_MS);
   try {
     const response = await fetch(`https://r.jina.ai/${url}`, {
       headers: { Accept: "text/plain", "X-No-Cache": "true" },
-      signal: controller.signal,
+      signal: AbortSignal.timeout(JINA_TIMEOUT_MS),
     });
     if (!response.ok) {
       return null;
@@ -149,8 +143,6 @@ const scrapeViaJina = async (url: string): Promise<string | null> => {
     return text.length < MIN_HOMEPAGE_CONTENT ? null : text;
   } catch {
     return null;
-  } finally {
-    clearTimeout(timeoutId);
   }
 };
 

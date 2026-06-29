@@ -14,6 +14,23 @@ interface RateLimitResult {
 }
 
 const buckets = new Map<string, RateLimitEntry>();
+const SWEEP_INTERVAL_MS = 60_000;
+let lastSweep = 0;
+
+// Drop every expired bucket. Throttled to at most once per window so the map
+// can't grow unbounded with one-off IPs that never return, without scanning on
+// every request.
+const sweepExpired = (now: number): void => {
+  if (now - lastSweep < SWEEP_INTERVAL_MS) {
+    return;
+  }
+  lastSweep = now;
+  for (const [key, entry] of buckets) {
+    if (entry.resetAt < now) {
+      buckets.delete(key);
+    }
+  }
+};
 
 export const checkRateLimit = (
   identifier: string,
@@ -21,6 +38,7 @@ export const checkRateLimit = (
   windowMs: number
 ): RateLimitResult => {
   const now = Date.now();
+  sweepExpired(now);
   const entry = buckets.get(identifier);
 
   if (!entry || entry.resetAt < now) {

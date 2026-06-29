@@ -41,7 +41,7 @@ export interface BlueprintsResult {
   domain: string;
 }
 
-const BLUEPRINT_COUNT = 3;
+export const BLUEPRINT_COUNT = 3;
 
 const isCategory = (value: unknown): value is BlueprintCategory =>
   typeof value === "string" &&

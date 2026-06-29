@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AgentRun } from "~/components/agent-run";
 import { Button } from "~/components/ui/button";
 import { BOOK_A_CALL_URL } from "~/lib/links";
+import { container, eyebrow } from "~/lib/styles";
 
 const PROCESS = [
   {
@@ -42,11 +43,19 @@ const AGENTS = [
   },
 ];
 
-const eyebrow =
-  "font-mono text-xs uppercase tracking-[0.25em] text-muted-foreground";
-const container = "mx-auto w-full max-w-6xl px-6";
 const sectionHeading =
   "mt-4 font-heading text-3xl font-semibold tracking-tight sm:text-4xl";
+
+const HeroCtas = () => (
+  <>
+    <Button asChild size="lg">
+      <Link to="/build">Get started</Link>
+    </Button>
+    <Button asChild size="lg" variant="outline">
+      <a href={BOOK_A_CALL_URL}>Book a call</a>
+    </Button>
+  </>
+);
 
 const Home = () => (
   <div className="min-h-svh">
@@ -112,12 +121,7 @@ const Home = () => (
               and showing its work before anything ships.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button asChild size="lg">
-                <Link to="/build">Get started</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href={BOOK_A_CALL_URL}>Book a call</a>
-              </Button>
+              <HeroCtas />
             </div>
             <p className="mt-6 font-mono text-xs text-muted-foreground">
               Free · no signup · shaped to your business, not a template
@@ -224,12 +228,7 @@ const Home = () => (
             your terms.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button asChild size="lg">
-              <Link to="/build">Get started</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <a href={BOOK_A_CALL_URL}>Book a call</a>
-            </Button>
+            <HeroCtas />
           </div>
         </div>
       </section>
