@@ -8,6 +8,7 @@ import {
   Package,
   Settings2,
   Target,
+  TrendingUp,
   Users,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -59,6 +60,16 @@ export const BlueprintCard = ({ blueprint }: { blueprint: Blueprint }) => {
         </div>
 
         <div className="flex flex-col gap-6 md:col-span-8">
+          <div className="rounded-2xl border border-border bg-foreground/[0.03] p-4">
+            <p className={`${panelLabel} flex items-center gap-1.5`}>
+              <TrendingUp className="size-3.5" />
+              Value
+            </p>
+            <p className="mt-1.5 text-pretty text-sm font-medium text-foreground">
+              {blueprint.outcome}
+            </p>
+          </div>
+
           <div>
             <p className={panelLabel}>What it does</p>
             <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">

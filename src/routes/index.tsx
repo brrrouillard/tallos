@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { AgentRun } from "~/components/agent-run";
+import { SiteHeader } from "~/components/site-header";
 import { Button } from "~/components/ui/button";
 import { BOOK_A_CALL_URL } from "~/lib/links";
 import { container, eyebrow } from "~/lib/styles";
@@ -59,49 +60,7 @@ const HeroCtas = () => (
 
 const Home = () => (
   <div className="min-h-svh">
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
-      <div className={`${container} flex h-14 items-center justify-between`}>
-        <a
-          className="font-heading text-lg font-semibold tracking-tight"
-          href="#top"
-        >
-          Tallos
-        </a>
-        <nav className="hidden items-center gap-7 md:flex">
-          <a
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            href="#how"
-          >
-            How it works
-          </a>
-          <a
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            href="#agents"
-          >
-            Examples
-          </a>
-          <Link
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            to="/build"
-          >
-            Build agents
-          </Link>
-        </nav>
-        <div className="flex items-center gap-2">
-          <Button
-            asChild
-            className="hidden sm:inline-flex"
-            size="sm"
-            variant="ghost"
-          >
-            <a href={BOOK_A_CALL_URL}>Book a call</a>
-          </Button>
-          <Button asChild size="sm">
-            <Link to="/build">Get started</Link>
-          </Button>
-        </div>
-      </div>
-    </header>
+    <SiteHeader />
 
     <main>
       <section id="top">

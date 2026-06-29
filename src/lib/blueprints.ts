@@ -32,6 +32,7 @@ export interface Blueprint {
   exampleTask: string;
   features: string[];
   name: string;
+  outcome: string;
   shortDescription: string;
   whyItFits: string;
 }
@@ -39,6 +40,12 @@ export interface Blueprint {
 export interface BlueprintsResult {
   blueprints: Blueprint[];
   domain: string;
+  understanding: string;
+}
+
+export interface Generation {
+  blueprints: Blueprint[];
+  understanding: string;
 }
 
 export const BLUEPRINT_COUNT = 3;
@@ -64,6 +71,7 @@ const toBlueprint = (raw: unknown): Blueprint | null => {
       isCategory(record.category) &&
       isNonEmptyString(record.name) &&
       isNonEmptyString(record.shortDescription) &&
+      isNonEmptyString(record.outcome) &&
       isNonEmptyString(record.whyItFits) &&
       isNonEmptyString(record.exampleTask) &&
       isNonEmptyString(record.estTimeSaved) &&
@@ -79,6 +87,7 @@ const toBlueprint = (raw: unknown): Blueprint | null => {
     exampleTask: record.exampleTask.trim(),
     features: features.map((f) => f.trim()),
     name: record.name.trim(),
+    outcome: record.outcome.trim(),
     shortDescription: record.shortDescription.trim(),
     whyItFits: record.whyItFits.trim(),
   };
@@ -105,4 +114,16 @@ export const parseBlueprints = (raw: unknown): Blueprint[] | null => {
   return valid.length >= BLUEPRINT_COUNT
     ? valid.slice(0, BLUEPRINT_COUNT)
     : null;
+};
+
+// Parse the full model payload: the blueprints plus the agent's plain-language
+// understanding of the business (shown to the user during analysis).
+export const parseGeneration = (raw: unknown): Generation | null => {
+  const blueprints = parseBlueprints(raw);
+  if (!blueprints) {
+    return null;
+  }
+  const value = (raw as { understanding?: unknown }).understanding;
+  const understanding = typeof value === "string" ? value.trim() : "";
+  return { blueprints, understanding };
 };
