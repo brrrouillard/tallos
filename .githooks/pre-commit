@@ -1,0 +1,14 @@
+#!/bin/sh
+# Pre-commit gate: lint/format (ultracite) + typecheck (tsc) must pass.
+# Wired up via core.hooksPath=.githooks, set by the package.json "prepare"
+# script on `bun install`. To bypass once: git commit --no-verify.
+
+set -e
+
+echo "▸ ultracite check (lint + format)"
+bun run check
+
+echo "▸ tsc --noEmit (typecheck)"
+bunx tsc --noEmit
+
+echo "✓ pre-commit checks passed"
