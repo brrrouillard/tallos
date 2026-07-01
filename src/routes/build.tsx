@@ -19,10 +19,10 @@ type Status = "done" | "error" | "idle" | "loading";
 const ERROR_MESSAGES: Record<BlueprintError, string> = {
   generation_failed:
     "Something went wrong building your agents. Please try again.",
-  invalid_url: "That doesn't look like a website. Try something like acme.com.",
-  rate_limited: "You've run a few in a row — give it a minute and try again.",
+  invalid_url: "That doesn’t look like a website. Try something like acme.com.",
+  rate_limited: "You’ve run a few in a row — give it a minute and try again.",
   scrape_failed:
-    "We couldn't read that site — it may block bots or be down. Try another URL.",
+    "We couldn’t read that site — it may block bots or be down. Try another URL.",
 };
 
 const enterAnim =
@@ -82,7 +82,7 @@ const Build = () => {
       <main className={`${container} py-16 md:py-24`}>
         <div className="mx-auto flex max-w-2xl flex-col text-center">
           <h1 className="text-balance font-heading text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-            See the agents we'd build for your business
+            See the agents we’d build for your business
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-pretty text-base text-muted-foreground sm:text-lg">
             Drop in your website. Tallos reads it and designs {BLUEPRINT_COUNT}{" "}
@@ -163,7 +163,7 @@ const Build = () => {
                 Want these working for you?
               </h2>
               <p className="mx-auto mt-3 max-w-md text-pretty text-sm text-muted-foreground">
-                These are tailored to {result.domain}. Book a call and we'll
+                These are tailored to {result.domain}. Book a call and we’ll
                 help you put them to work.
               </p>
               <Button asChild className="mt-6 active:scale-[0.96]" size="lg">
@@ -181,7 +181,7 @@ export const Route = createFileRoute("/build")({
   component: Build,
   head: () => ({
     meta: [
-      { title: "Tallos — see the agents we'd build for your business" },
+      { title: "Tallos — see the agents we’d build for your business" },
       {
         content:
           "Enter your website and Tallos designs three AI agents tailored to your business — free, no signup.",

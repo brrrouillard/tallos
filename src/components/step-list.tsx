@@ -20,7 +20,7 @@ const StepMarker = ({ state }: { state: StepState }) => {
   }
   if (state === "working") {
     return (
-      <span className="size-1.5 animate-pulse rounded-full bg-foreground motion-reduce:animate-none" />
+      <span className="size-1.5 animate-pulse rounded-full bg-primary motion-reduce:animate-none" />
     );
   }
   return null;
@@ -38,7 +38,7 @@ export const StepRow = ({
       className={cn(
         "flex size-5 shrink-0 items-center justify-center rounded-full border transition-colors",
         state === "done" && "border-transparent bg-foreground text-background",
-        state === "working" && "border-foreground/40",
+        state === "working" && "border-primary/60 text-primary",
         state === "pending" && "border-border"
       )}
     >
@@ -47,7 +47,7 @@ export const StepRow = ({
     <span
       className={cn(
         "font-mono text-xs",
-        state === "pending" ? "text-muted-foreground/50" : "text-foreground"
+        state === "pending" ? "text-muted-foreground/70" : "text-foreground"
       )}
     >
       {label}

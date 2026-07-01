@@ -8,7 +8,7 @@ import { panelLabel } from "~/lib/styles";
 import { cn } from "~/lib/utils";
 
 const GOAL =
-  "Prep me for the 2pm with Acme. What's open, and what should I know?";
+  "Prep me for the 2pm with Acme. What’s open, and what should I know?";
 
 const STEPS = [
   "Reading the last 3 threads with Acme",
@@ -48,7 +48,7 @@ export const AgentRun = () => {
   const done = active >= STEPS.length;
 
   return (
-    <Card className="gap-0 overflow-hidden p-0 shadow-sm">
+    <Card className="gap-0 overflow-hidden p-0 shadow-card">
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <span className={panelLabel}>Renewals agent</span>
         <Badge className="gap-1.5" variant="outline">
@@ -56,8 +56,8 @@ export const AgentRun = () => {
             className={cn(
               "size-1.5 rounded-full",
               done
-                ? "bg-emerald-500"
-                : "animate-pulse bg-muted-foreground motion-reduce:animate-none"
+                ? "bg-success"
+                : "animate-pulse bg-primary motion-reduce:animate-none"
             )}
           />
           {done ? `Done · ${RUN_SECONDS}s` : "Working"}
@@ -75,7 +75,7 @@ export const AgentRun = () => {
         </ol>
 
         {done ? (
-          <div className="mt-4 rounded-md border border-border bg-muted/40 p-3 duration-500 animate-in fade-in slide-in-from-bottom-1 motion-reduce:animate-none">
+          <div className="mt-4 rounded-md border border-border bg-muted/40 p-3 duration-500 ease-out-expo animate-in fade-in slide-in-from-bottom-1 motion-reduce:animate-none">
             <p className={panelLabel}>Draft brief</p>
             <ul className="mt-2 flex flex-col gap-1">
               {BRIEF.map((line) => (

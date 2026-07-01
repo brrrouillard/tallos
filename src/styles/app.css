@@ -1,8 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/figtree";
+/* Blueprint / made-to-measure type system:
+   Space Grotesk = drafted headline voice · IBM Plex Sans = engineered body
+   · IBM Plex Mono = spec annotations (mono is DATA here, not decoration). */
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -13,8 +18,8 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.55 0.2 40);
+  --primary-foreground: oklch(0.99 0.012 75);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -22,9 +27,11 @@
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
+  --success: oklch(0.6 0.15 150);
+  --success-foreground: oklch(0.99 0.01 150);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.55 0.2 40);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -42,24 +49,32 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /* Dark is a decision, not a default: a warm graphite drafting ground (hue ~61),
+     one draughtsman marking-pencil accent (--primary, hue ~40), cool graphite for
+     secondary text so it recedes (Ch 9 warm advances / cool recedes). */
+  --background: oklch(0.165 0.006 61);
+  --foreground: oklch(0.965 0.004 83);
+  --card: oklch(0.205 0.006 61);
+  --card-foreground: oklch(0.965 0.004 83);
+  --popover: oklch(0.205 0.006 61);
+  --popover-foreground: oklch(0.965 0.004 83);
+  --primary: oklch(0.56 0.19 40);
+  --primary-foreground: oklch(0.99 0.012 75);
+  --secondary: oklch(0.265 0.006 61);
+  --secondary-foreground: oklch(0.965 0.004 83);
+  --muted: oklch(0.265 0.006 61);
+  --muted-foreground: oklch(0.705 0.012 248);
+  --accent: oklch(0.275 0.007 55);
+  --accent-foreground: oklch(0.965 0.004 83);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  /* Success green (hue 150) — success/progress convention (Ch 9), leans warm to
+     harmonize with the graphite ground; hue-distant from the hue-40 accent so
+     action and success never read as the same signal. */
+  --success: oklch(0.74 0.15 150);
+  --success-foreground: oklch(0.2 0.03 150);
+  --border: oklch(0.86 0.012 70 / 12%);
+  --input: oklch(0.86 0.012 70 / 16%);
+  --ring: oklch(0.56 0.19 40);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -76,8 +91,13 @@
 }
 
 @theme inline {
-  --font-sans: "Inter Variable", sans-serif;
-  --font-heading: "Figtree Variable", sans-serif;
+  --font-sans: "IBM Plex Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-heading:
+    "Space Grotesk Variable", "IBM Plex Sans Variable", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  /* Exponential ease-out for entries (arrive + decelerate). Never bounce/elastic.
+     Enables the `ease-out-expo` utility. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -95,6 +115,11 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  /* Elevation shadow is hue-shifted cool (hue 260), not pure black — Ch 9:
+     shadows skew cooler than the base for lifelike depth. */
+  --shadow-card: 0 1px 3px 0 oklch(0.12 0.03 260 / 0.55);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -127,5 +152,34 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* Global safety net: honor prefers-reduced-motion everywhere, not only on the
+   components that opt in via `motion-reduce:`. Belt-and-suspenders per the
+   motion Critical check. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Input adaptation: on touch (coarse pointer), grow interactive targets to the
+   44x44px minimum (WCAG 2.5.8). Pointer/fine devices keep the compact sizing. */
+@media (pointer: coarse) {
+  [data-slot="button"] {
+    min-height: 44px;
+  }
+  [data-slot="button"][data-size^="icon"] {
+    min-width: 44px;
+  }
+  /* nav links already carry inline-flex + items-center via their utility class */
+  header nav a {
+    min-height: 44px;
   }
 }

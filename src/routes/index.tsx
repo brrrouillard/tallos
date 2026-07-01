@@ -30,7 +30,7 @@ const AGENTS = [
   },
   {
     detail:
-      "Triages your shared inbox, drafts replies, and routes what it can't answer.",
+      "Triages your shared inbox, drafts replies, and routes what it can’t answer.",
     title: "Inbox agent",
   },
   {
@@ -44,6 +44,11 @@ const AGENTS = [
     title: "Research agent",
   },
 ];
+
+// Zero-padded spec number (blueprint motif), e.g. seqLabel(0) → "01",
+// seqLabel(0, "AG-") → "AG-01".
+const seqLabel = (index: number, prefix = "") =>
+  `${prefix}${(index + 1).toString().padStart(2, "0")}`;
 
 const HeroCtas = () => (
   <>
@@ -67,10 +72,8 @@ const Home = () => (
         >
           <div className="flex flex-col">
             <p className={eyebrow}>Custom AI agents for your business</p>
-            <h1 className="mt-5 text-balance font-heading text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-              Build the agents
-              <br />
-              your business needs.
+            <h1 className="mt-5 text-balance font-heading text-[clamp(2.25rem,1.1rem+4.7vw,3.75rem)] font-semibold leading-[1.05] tracking-tight">
+              Build the agents your business needs.
             </h1>
             <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
               Design AI agents around your own tools, data, and workflows. Each
@@ -105,8 +108,8 @@ const Home = () => (
                 className="flex flex-col border-t border-border pt-5"
                 key={step.title}
               >
-                <span className="font-mono text-sm text-muted-foreground">
-                  {(index + 1).toString().padStart(2, "0")}
+                <span className="font-mono text-sm text-primary">
+                  {seqLabel(index)}
                 </span>
                 <h3 className="mt-3 font-heading text-lg font-medium">
                   {step.title}
@@ -137,9 +140,12 @@ const Home = () => (
             </p>
           </div>
           <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2">
-            {AGENTS.map((agent) => (
+            {AGENTS.map((agent, index) => (
               <div className="bg-background p-6" key={agent.title}>
-                <h3 className="font-heading text-lg font-medium">
+                <span className="font-mono text-xs text-muted-foreground">
+                  {seqLabel(index, "AG-")}
+                </span>
+                <h3 className="mt-3 font-heading text-lg font-medium">
                   {agent.title}
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
@@ -157,11 +163,7 @@ const Home = () => (
         >
           <div>
             <p className={eyebrow}>Tailored to you</p>
-            <h2 className={sectionHeading}>
-              Not a template.
-              <br />
-              Your agents.
-            </h2>
+            <h2 className={sectionHeading}>Not a template. Your agents.</h2>
           </div>
           <div className="flex flex-col gap-4 text-base text-muted-foreground">
             <p>
@@ -179,7 +181,7 @@ const Home = () => (
 
       <section className="border-t border-border bg-card">
         <div className={`${container} py-20 text-center md:py-28`}>
-          <h2 className="mx-auto max-w-2xl text-balance font-heading text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+          <h2 className="mx-auto max-w-2xl text-balance font-heading text-[clamp(1.875rem,1rem+3.6vw,3rem)] font-semibold tracking-tight">
             Build agents that fit your business
           </h2>
           <p className="mx-auto mt-5 max-w-md text-muted-foreground">

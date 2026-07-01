@@ -104,10 +104,10 @@ export const AgentChat = ({
 
             {done ? (
               <AgentBubble>
-                <p className={`${panelLabel} mb-1.5`}>Here's what I see</p>
+                <p className={`${panelLabel} mb-1.5`}>Here’s what I see</p>
                 <p className="text-pretty">
                   {understanding ||
-                    `Here's what I found about ${company} — and ${BLUEPRINT_COUNT} agents I'd build for your team below.`}
+                    `Here’s what I found about ${company} — and ${BLUEPRINT_COUNT} agents I’d build for your team below.`}
                 </p>
               </AgentBubble>
             ) : null}
