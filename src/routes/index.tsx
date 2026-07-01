@@ -1,14 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { AgentRun } from "~/components/agent-run";
+import { Integrations } from "~/components/integrations";
 import { SiteHeader } from "~/components/site-header";
 import { Button } from "~/components/ui/button";
 import { BOOK_A_CALL_URL } from "~/lib/links";
-import { container, eyebrow } from "~/lib/styles";
+import { container, eyebrow, sectionHeading } from "~/lib/styles";
 
 const PROCESS = [
   {
-    body: "Tell Tallos what the agent should do, which of your tools it can touch, and what good looks like — all in plain language.",
+    body: "Tell Tallos what the agent should do, which of your tools it can touch, and what good looks like. All in plain language.",
     title: "Describe the agent",
   },
   {
@@ -44,13 +45,10 @@ const AGENTS = [
   },
 ];
 
-const sectionHeading =
-  "mt-4 font-heading text-3xl font-semibold tracking-tight sm:text-4xl";
-
 const HeroCtas = () => (
   <>
     <Button asChild size="lg">
-      <Link to="/build">Get started</Link>
+      <Link to="/build">See my agents</Link>
     </Button>
     <Button asChild size="lg" variant="outline">
       <a href={BOOK_A_CALL_URL}>Book a call</a>
@@ -75,15 +73,16 @@ const Home = () => (
               your business needs.
             </h1>
             <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
-              Tallos lets you design AI agents around your own tools, data, and
-              workflows — each one shaped to a real job your team needs done,
-              and showing its work before anything ships.
+              Design AI agents around your own tools, data, and workflows. Each
+              one is shaped to a real job your team needs done, and shows its
+              work before anything ships.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <HeroCtas />
             </div>
             <p className="mt-6 font-mono text-xs text-muted-foreground">
-              Free · no signup · shaped to your business, not a template
+              <span className="text-foreground">Free · no signup</span> · shaped
+              to your business, not a template
             </p>
           </div>
           <div className="md:pl-4">
@@ -121,6 +120,8 @@ const Home = () => (
         </div>
       </section>
 
+      <Integrations />
+
       <section className="border-t border-border bg-muted/30" id="agents">
         <div className={`${container} py-20 md:py-24`}>
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -131,9 +132,8 @@ const Home = () => (
               </h2>
             </div>
             <p className="max-w-xs text-sm text-muted-foreground">
-              Each one is shaped to a real job in your business — with the
-              tools, data, and guardrails you give it. These four are just
-              examples.
+              Each one is built for a real job in your business, with the tools,
+              data, and guardrails you give it. These four are just examples.
             </p>
           </div>
           <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2">
@@ -166,7 +166,7 @@ const Home = () => (
           <div className="flex flex-col gap-4 text-base text-muted-foreground">
             <p>
               Give each agent the tools it needs, the data it should know, and
-              the exact scope of its job. No two businesses run the same way —
+              the exact scope of its job. No two businesses run the same way,
               and neither do their agents.
             </p>
             <p>

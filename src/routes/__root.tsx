@@ -26,10 +26,10 @@ export const Route = createRootRoute({
       { content: "width=device-width, initial-scale=1", name: "viewport" },
       {
         content:
-          "Tallos lets you build AI agents tailored to your own tools, data, and workflows — agents that do your team's real work and show their reasoning before anything ships.",
+          "Build AI agents shaped to your own tools, data, and workflows. Each one does your team's real work and shows every step before anything ships.",
         name: "description",
       },
-      { title: "Tallos — build AI agents tailored to your business" },
+      { title: "Tallos: build AI agents tailored to your business" },
     ],
   }),
   shellComponent: RootDocument,

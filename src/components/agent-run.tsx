@@ -8,7 +8,7 @@ import { panelLabel } from "~/lib/styles";
 import { cn } from "~/lib/utils";
 
 const GOAL =
-  "Prep me for the 2pm with Acme — what's open and what should I know?";
+  "Prep me for the 2pm with Acme. What's open, and what should I know?";
 
 const STEPS = [
   "Reading the last 3 threads with Acme",
@@ -18,7 +18,7 @@ const STEPS = [
 ];
 
 const BRIEF = [
-  "Renewal lands Aug 14 — 38 days out.",
+  "Renewal lands Aug 14, 38 days out.",
   "Blocker: security review, waiting on our SOC 2 report.",
   "Raise pilot seats before the pricing conversation.",
 ];
@@ -80,7 +80,7 @@ export const AgentRun = () => {
             <ul className="mt-2 flex flex-col gap-1">
               {BRIEF.map((line) => (
                 <li className="flex gap-2 text-sm text-foreground" key={line}>
-                  <span className="text-muted-foreground">—</span>
+                  <span className="text-muted-foreground">·</span>
                   {line}
                 </li>
               ))}
